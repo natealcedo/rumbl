@@ -1,9 +1,9 @@
-defmodule Rumbl.Accounts do
+defmodule Rumbl.Account do
   @moduledoc """
-  The Accounts context.
+  The Account context.
   """
 
-  alias Rumbl.Accounts.User
+  alias Rumbl.Account.User
 
   def list_users do
     [

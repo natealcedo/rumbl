@@ -1,3 +1,3 @@
-defmodule Rumbl.Accounts.User do
+defmodule Rumbl.Account.User do
   defstruct [:id, :name, :username]
 end
