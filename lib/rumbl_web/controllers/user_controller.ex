@@ -17,4 +17,18 @@ defmodule RumblWeb.UserController do
     changeset = Account.change_user(%User{})
     render(conn, "new.html", changeset: changeset)
   end
+
+  def create(conn, %{"user" => user_params}) do
+    result = Account.create_user(user_params)
+
+    case result do
+      {:ok, user} ->
+        conn
+        |> put_flash(:info, "#{user.name} created!")
+        |> redirect(to: user_path(conn, :index))
+
+      {:error, %Ecto.Changeset{} = changeset} ->
+        render(conn, "new.html", changeset: changeset)
+    end
+  end
 end
