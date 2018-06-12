@@ -19,7 +19,7 @@ defmodule RumblWeb.UserController do
   end
 
   def create(conn, %{"user" => user_params}) do
-    result = Account.create_user(user_params)
+    result = Account.register_user(user_params)
 
     case result do
       {:ok, user} ->
