@@ -38,6 +38,7 @@ defmodule RumblWeb.UserController do
     case result do
       {:ok, user} ->
         conn
+        |> RumblWeb.Auth.login(user)
         |> put_flash(:info, "#{user.name} created!")
         |> redirect(to: user_path(conn, :index))
 
