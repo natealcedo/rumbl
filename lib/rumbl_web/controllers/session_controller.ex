@@ -7,6 +7,12 @@ defmodule RumblWeb.SessionController do
     render(conn, "new.html")
   end
 
+  def delete(conn, _params) do
+    conn
+    |> Auth.logout()
+    |> redirect(to: page_path(conn, :index))
+  end
+
   def create(conn, %{"session" => %{"email" => email, "password" => pass}}) do
     case Auth.login_by_email_and_pass(conn, email, pass) do
       {:ok, conn} ->
