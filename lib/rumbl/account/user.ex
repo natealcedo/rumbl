@@ -22,6 +22,6 @@ defmodule Rumbl.Account.User do
   def registration_changeset(user, params) do
     user
     |> changeset(params)
-    |> Ecto.Changeset.cast_assoc(:credential, with: &Credential.changeset/2)
+    |> Ecto.Changeset.cast_assoc(:credential, with: &Credential.changeset/2, required: true)
   end
 end
