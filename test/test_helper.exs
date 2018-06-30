@@ -8,6 +8,9 @@ defmodule Rumbl.TestHelpers do
     Multimedia
   }
 
+  def create_credential(attrs \\ %{}),
+    do: Enum.into(attrs, %{email: "random_email@localhost.com", password: "randompassword"})
+
   def user_fixture(attrs \\ %{}) do
     {:ok, user} =
       attrs

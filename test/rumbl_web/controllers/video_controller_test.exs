@@ -7,13 +7,6 @@ defmodule RumblWeb.VideoControllerTest do
 
   defp video_count, do: Enum.count(Multimedia.list_videos())
 
-  defp create_credential(attrs),
-    do:
-      Enum.into(attrs, %{
-        email: "random_email@localhost.com",
-        password: "randompassword"
-      })
-
   describe "with a logged in user" do
     setup %{conn: conn, login_as: username} do
       user = user_fixture(username: username)
@@ -28,7 +21,7 @@ defmodule RumblWeb.VideoControllerTest do
       other_video =
         user_fixture(
           username: "other",
-          credential: %{email: "another@localhost", password: "anotherrandomm"}
+          credential: create_credential()
         )
         |> video_fixture(title: "another video")
 
