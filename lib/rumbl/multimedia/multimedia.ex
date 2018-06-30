@@ -141,4 +141,8 @@ defmodule Rumbl.Multimedia do
     |> Category.select(fields)
     |> Repo.all()
   end
+
+  def create_category(name) do
+    Repo.get_by(Category, name: name) || Repo.insert!(%Category{name: name})
+  end
 end
