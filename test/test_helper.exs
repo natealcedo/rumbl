@@ -15,6 +15,7 @@ defmodule Rumbl.TestHelpers do
         name: "Some User",
         username: "user#{System.unique_integer([:positive])}",
         credential: %{
+          email: "random@localhost",
           password: "supersecret"
         }
       })
