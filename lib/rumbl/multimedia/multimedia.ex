@@ -135,10 +135,9 @@ defmodule Rumbl.Multimedia do
     Ecto.Changeset.put_assoc(changeset, :user, user)
   end
 
-  def list_alphabetical_categories(fields) do
+  def list_alphabetical_categories() do
     Category
     |> Category.alphabetical()
-    |> Category.select(fields)
     |> Repo.all()
   end
 

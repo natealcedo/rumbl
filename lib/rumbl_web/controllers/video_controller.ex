@@ -7,7 +7,7 @@ defmodule RumblWeb.VideoController do
   plug(:load_categories when action in [:new, :create, :edit, :update])
 
   defp load_categories(conn, _) do
-    assign(conn, :categories, Multimedia.list_alphabetical_categories({:name, :id}))
+    assign(conn, :categories, Multimedia.list_alphabetical_categories())
   end
 
   def action(conn, _) do
