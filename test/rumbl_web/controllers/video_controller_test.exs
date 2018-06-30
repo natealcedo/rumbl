@@ -7,6 +7,13 @@ defmodule RumblWeb.VideoControllerTest do
 
   defp video_count, do: Enum.count(Multimedia.list_videos())
 
+  defp create_credential(attrs),
+    do:
+      Enum.into(attrs, %{
+        email: "random_email@localhost.com",
+        password: "randompassword"
+      })
+
   describe "with a logged in user" do
     setup %{conn: conn, login_as: username} do
       user = user_fixture(username: username)
@@ -69,5 +76,39 @@ defmodule RumblWeb.VideoControllerTest do
         assert conn.halted
       end
     )
+  end
+
+  test "authorizes actions against access by other users", %{conn: conn} do
+    owner =
+      user_fixture(
+        username: "owner",
+        credential: create_credential(email: "random_email@localhost")
+      )
+
+    video = video_fixture(owner, @create_attrs)
+
+    non_owner =
+      user_fixture(
+        username: "non_owner",
+        credential: create_credential(email: "non_owner@localhost")
+      )
+
+    conn = assign(conn, :current_user, non_owner)
+
+    assert_error_sent(:not_found, fn ->
+      get(conn, video_path(conn, :show, video))
+    end)
+
+    assert_error_sent(:not_found, fn ->
+      get(conn, video_path(conn, :edit, video))
+    end)
+
+    assert_error_sent(:not_found, fn ->
+      put(conn, video_path(conn, :update, video, video: @create_attrs))
+    end)
+
+    assert_error_sent(:not_found, fn ->
+      delete(conn, video_path(conn, :delete, video))
+    end)
   end
 end
