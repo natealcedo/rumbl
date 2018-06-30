@@ -27,7 +27,8 @@ defmodule Rumbl.TestHelpers do
     attrs =
       Enum.into(attrs, %{
         url: "http://example.com",
-        description: "a description"
+        description: "a description",
+        title: "some title"
       })
 
     {:ok, video} = Multimedia.create_video(user, attrs)
