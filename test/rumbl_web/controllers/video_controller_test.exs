@@ -45,7 +45,7 @@ defmodule RumblWeb.VideoControllerTest do
     end
 
     @tag login_as: "max"
-    test "does not create video and renders errors when invalid", %{conn: conn, user: user} do
+    test "does not create video and renders errors when invalid", %{conn: conn, user: _user} do
       count_before = video_count()
       conn = post(conn, video_path(conn, :create), video: @invalid_attrs)
       assert html_response(conn, 200) =~ "check the errors"
